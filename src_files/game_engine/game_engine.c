@@ -4,18 +4,21 @@
 
 void GameLoop() {
     Game_State game_state;
+    Texture2D frog = LoadTexture("/home/sherlly/git/platformer/frog.png");
+
     Actor Player = {
     .x = GetScreenWidth() / 2,
     .y = GetScreenHeight() - 200,
     .x_speed = 5,
     .y_speed = 5,
-    .width = 100,
-    .height = 100,
+    .width = 250,
+    .height = 214,
     .health = 100,
     .mana = 100,
     .stamina = 100,
     .action = STANDING,
     .default_colour = GREEN,
+    .texture = frog,
     .name = "Player1"
     };
 

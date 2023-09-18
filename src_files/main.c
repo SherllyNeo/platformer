@@ -8,6 +8,7 @@
 int main()
 {
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Bilo");
+    SetTargetFPS(130);
 
     GameLoop();
 
