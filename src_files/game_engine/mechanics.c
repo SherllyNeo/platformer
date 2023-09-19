@@ -95,7 +95,7 @@ void ApplyPhysics(Game_State* game_state) {
             if ((cur_actor->y + cur_actor->height) > get_floor_height()) {
                 cur_actor->y = get_floor_height() - cur_actor->height;
             }
-            if ( cur_actor->action == JUMPING) {
+            if (!actor_on_ground(*cur_actor) || cur_actor->action == JUMPING) {
                 cur_actor->y += cur_actor->y_speed;
                 cur_actor->x += cur_actor->x_speed;
                 if (actor_on_ground(*cur_actor)) {
