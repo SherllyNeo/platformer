@@ -74,6 +74,7 @@ void ApplyPhysics(Game_State* game_state) {
 
         for (int i = 0; i<game_state->actor_count; i++) {
             Actor *cur_actor = game_state->actors[i];
+
             if (!actor_on_ground(*cur_actor)) {
                 cur_actor->y_speed += GRAVITY;
             }
