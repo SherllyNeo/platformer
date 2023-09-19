@@ -17,6 +17,7 @@ void GameLoop() {
     .mana = 100,
     .stamina = 100,
     .action = STANDING,
+    .type = PLAYER,
     .default_colour = GREEN,
     .texture = frog,
     .name = "Player1"

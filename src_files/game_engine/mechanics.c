@@ -12,6 +12,14 @@ typedef enum {
     JUMPING
 } Action;
 
+typedef enum {
+    PLAYER,
+    ALLY,
+    MOB,
+    NEUTRAL,
+    OBJECT
+} Type;
+
 typedef struct {
     char name[100];
     int x;
@@ -24,6 +32,7 @@ typedef struct {
     int mana;
     int stamina;
     Action action;
+    Type type;
     Texture2D texture;
     Color default_colour;
 } Actor;
