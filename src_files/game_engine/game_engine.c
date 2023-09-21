@@ -20,7 +20,8 @@ void GameLoop() {
     .type = PLAYER,
     .default_colour = GREEN,
     .texture = frog,
-    .name = "Player1"
+    .name = "Player1",
+    .looking_direction = 0
     };
 
     Camera2D Camera;
@@ -34,6 +35,7 @@ void GameLoop() {
     game_state.player_index = 0;
     game_state.stage = PLAYING;
     game_state.camera = &Camera;
+    game_state.camera_smoothing = Player.x + Player.width / 2.0f;
 
 
 

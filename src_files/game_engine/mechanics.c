@@ -35,6 +35,7 @@ typedef struct {
     Type type;
     Texture2D texture;
     Color default_colour;
+    int looking_direction;
 } Actor;
 
 
@@ -54,6 +55,7 @@ typedef struct {
     int actor_count;
     int player_index;
     Camera2D *camera;
+    float camera_smoothing;
 } Game_State;
 
 bool actor_on_ground(Actor player) {
@@ -66,16 +68,21 @@ void Listen_Input(Game_State* game_state) {
     if (actor_on_ground(*player)) {
         if (IsKeyDown(KEY_RIGHT)) {
             player->action = WALKING_RIGHT;
+            player->looking_direction = 0;
             player->x_speed = 10;
         }
-        if (IsKeyDown(KEY_LEFT)) {
+        else if (IsKeyDown(KEY_LEFT)) {
             player->action = WALKING_LEFT;
+            player->looking_direction = 1;
             player->x_speed = -10;
         }
-        if (IsKeyPressed(KEY_UP) && (player->action != JUMPING)) {
+        else if (IsKeyPressed(KEY_UP) && (player->action != JUMPING)) {
             player->action = JUMPING;
             player->y_speed = -30;
         } 
+        else {
+            player->action = STANDING;
+        }
     }
 }
 
@@ -88,6 +95,7 @@ void ApplyPhysics(Game_State* game_state) {
             if (!actor_on_ground(*cur_actor)) {
                 cur_actor->y_speed += GRAVITY;
             }
+
             if (actor_on_ground(*cur_actor)) {
                 if (cur_actor->action == WALKING_LEFT) {
                     if (cur_actor->x_speed < 0) {
@@ -109,7 +117,7 @@ void ApplyPhysics(Game_State* game_state) {
                 cur_actor->y += cur_actor->y_speed;
                 cur_actor->x += cur_actor->x_speed;
                 if (actor_on_ground(*cur_actor)) {
-                    cur_actor->y = get_floor_height();
+                    cur_actor->y = get_floor_height() - cur_actor->height;
                     cur_actor->action = STANDING;
                 }
             }
