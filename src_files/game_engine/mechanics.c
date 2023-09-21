@@ -53,6 +53,7 @@ typedef struct {
     Actor* actors[50];
     int actor_count;
     int player_index;
+    Camera2D *camera;
 } Game_State;
 
 bool actor_on_ground(Actor player) {
