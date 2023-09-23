@@ -66,7 +66,11 @@ void Listen_Input(Game_State* game_state) {
     Actor *player = game_state->actors[game_state->player_index];
 
     if (actor_on_ground(*player)) {
-        if (IsKeyDown(KEY_RIGHT)) {
+        if (IsKeyPressed(KEY_UP) && (player->action != JUMPING)) {
+            player->action = JUMPING;
+            player->y_speed = -30;
+        } 
+        else if (IsKeyDown(KEY_RIGHT)) {
             player->action = WALKING_RIGHT;
             player->looking_direction = 0;
             player->x_speed = 10;
@@ -76,12 +80,9 @@ void Listen_Input(Game_State* game_state) {
             player->looking_direction = 1;
             player->x_speed = -10;
         }
-        else if (IsKeyPressed(KEY_UP) && (player->action != JUMPING)) {
-            player->action = JUMPING;
-            player->y_speed = -30;
-        } 
         else {
             player->action = STANDING;
+            player->x_speed = 0;
         }
     }
 }
@@ -106,8 +107,6 @@ void ApplyPhysics(Game_State* game_state) {
                     if (cur_actor->x_speed > 0) {
                         cur_actor->x_speed -= FRICTION;
                     }
-                }
-                else {
                 }
             }
             if ((cur_actor->y + cur_actor->height) > get_floor_height()) {

@@ -4,7 +4,15 @@
 void DrawActors(Game_State *game_state) {
     for (int i = 0; i<game_state->actor_count; i++) {
         Actor cur_actor = *(game_state->actors[i]);
-        DrawTexture(cur_actor.texture,cur_actor.x,cur_actor.y,WHITE);
+        if (cur_actor.action == WALKING_RIGHT) {
+            DrawTexture(cur_actor.texture,cur_actor.x,cur_actor.y,WHITE);
+        }
+        else if (cur_actor.action == WALKING_RIGHT) {
+            DrawTexture(cur_actor.texture,cur_actor.x,cur_actor.y,WHITE);
+        }
+        else {
+            DrawTexture(cur_actor.texture,cur_actor.x,cur_actor.y,WHITE);
+        }
     }
 }
 
@@ -30,8 +38,8 @@ void DrawRefreshCam(Game_State *game_state) {
          |             |            |
      */
 
-    int X = Player->x + Player->width / 2.0f;
-    float delta = 6.0f;
+    int X = Player->x + (Player->width / 2.0f);
+    float delta = 9.0f;
     if (Player->looking_direction) {
         if ((Camera->target.x)>=(X - GetScreenWidth()/3.0f)) {
             game_state->camera_smoothing -= delta;

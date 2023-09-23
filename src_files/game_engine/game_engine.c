@@ -9,7 +9,7 @@ void GameLoop() {
     Actor Player = {
     .x = GetScreenWidth() / 2,
     .y = GetScreenHeight() - 200,
-    .x_speed = 5,
+    .x_speed = 0,
     .y_speed = 5,
     .width = 250,
     .height = 214,
