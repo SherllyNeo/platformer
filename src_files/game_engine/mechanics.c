@@ -45,8 +45,8 @@ typedef enum {
     CREDITS
 } Game_Stage;
 
-int get_floor_height() {
-    return GetScreenHeight() - 50;
+int get_floor_height(int x_pos) {
+    return GetScreenHeight()*3;
 }
 
 typedef struct {
@@ -59,7 +59,7 @@ typedef struct {
 } Game_State;
 
 bool actor_on_ground(Actor player) {
-    return (player.y + player.height) >= get_floor_height();
+    return (player.y + player.height) >= get_floor_height(player.x + (player.width / 2.0f));
 }
 
 void Listen_Input(Game_State* game_state) {
@@ -109,14 +109,14 @@ void ApplyPhysics(Game_State* game_state) {
                     }
                 }
             }
-            if ((cur_actor->y + cur_actor->height) > get_floor_height()) {
-                cur_actor->y = get_floor_height() - cur_actor->height;
+            if ((cur_actor->y + cur_actor->height) > get_floor_height(cur_actor->x + (cur_actor->width / 2.0f))) {
+                cur_actor->y = get_floor_height(cur_actor->x + (cur_actor->width / 2.0f)) - cur_actor->height;
             }
             if (!actor_on_ground(*cur_actor) || cur_actor->action == JUMPING) {
                 cur_actor->y += cur_actor->y_speed;
                 cur_actor->x += cur_actor->x_speed;
                 if (actor_on_ground(*cur_actor)) {
-                    cur_actor->y = get_floor_height() - cur_actor->height;
+                    cur_actor->y = get_floor_height(cur_actor->x + (cur_actor->width / 2.0f)) - cur_actor->height;
                     cur_actor->action = STANDING;
                 }
             }

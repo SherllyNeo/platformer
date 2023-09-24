@@ -26,9 +26,9 @@ void GameLoop() {
 
     Camera2D Camera;
     Camera.offset = (Vector2){GetScreenWidth()/2.0f, (int)GetScreenHeight()/2.0f};
-    Camera.target = (Vector2){Player.x + Player.width/2.0f, Player.y + Player.height / 2.0f};
+    Camera.target = (Vector2){Player.x + Player.width/2.0f, Player.y + Player.height / 2.0f };
     Camera.rotation = 0.0f;
-    Camera.zoom = 1.0f;
+    Camera.zoom = 0.5f;
 
     game_state.actors[0] = &Player;
     game_state.actor_count = 1;
@@ -44,9 +44,9 @@ void GameLoop() {
         ClearBackground(BEIGE);
         BeginMode2D(*game_state.camera);
 
-        DrawScene(&game_state);
         Listen_Input(&game_state);
         ApplyPhysics(&game_state);
+        DrawScene(&game_state);
         EndMode2D();
         EndDrawing();
     }

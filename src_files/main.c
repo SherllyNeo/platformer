@@ -7,7 +7,7 @@
 
 int main()
 {
-    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
+//    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Bilo");
     SetTargetFPS(130);
 

@@ -16,8 +16,10 @@ void DrawActors(Game_State *game_state) {
     }
 }
 
-void DrawFloor() {
-    DrawRectangle(0,get_floor_height(), GetScreenWidth()*5, get_floor_height(),  BLUE);
+void DrawFloor(Game_State *game_state) {
+    Camera2D * camera = game_state->camera;
+    int x_pos = camera->target.x;
+    DrawRectangle(0,get_floor_height(x_pos), GetScreenWidth(), get_floor_height(x_pos),  BLUE);
 }
 void DrawRefreshCam(Game_State *game_state) {
     Actor *Player = game_state->actors[game_state->player_index];
@@ -40,6 +42,7 @@ void DrawRefreshCam(Game_State *game_state) {
 
     int X = Player->x + (Player->width / 2.0f);
     float delta = 9.0f;
+
     if (Player->looking_direction) {
         if ((Camera->target.x)>=(X - GetScreenWidth()/3.0f)) {
             game_state->camera_smoothing -= delta;
@@ -50,7 +53,8 @@ void DrawRefreshCam(Game_State *game_state) {
             game_state->camera_smoothing += delta;
         }
     }
-    Camera->target = (Vector2){game_state->camera_smoothing, Player->y + Player->height / 2.0f};
+    /* old height - Player->y + Player->height / 2.0f - 600 */
+    Camera->target = (Vector2){game_state->camera_smoothing,get_floor_height(Player->x + Player->width / 2.0f) - 900 };
 
 
 }
@@ -58,5 +62,5 @@ void DrawRefreshCam(Game_State *game_state) {
 void DrawScene(Game_State *game_state) {
     DrawRefreshCam(game_state);
     DrawActors(game_state);
-    DrawFloor();
+    DrawFloor(game_state);
 }
